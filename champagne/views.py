@@ -10,7 +10,7 @@ def home_page_view(request):
 
 
 def about_page_view(request):
-    return render(request, "hello.html", {"title": "About us"})
+    return render(request, "about.html", {"title": "About us"})
 
 
 def contact_page_view(request):
