@@ -43,8 +43,9 @@ def blog_page_detail_view(request, slug):
 
 
 def blog_page_list_view(request):
+    queryset = ChampagneBlogPost.objects.all()
     template_name = "blog_page_list.html"
-    context = {"object_list": []}
+    context = {"object_list": queryset}
     return render(request, template_name, context)
 
 
