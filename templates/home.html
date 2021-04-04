@@ -5,5 +5,12 @@
 {{ title }}
 {{ user }}
 {{ user.is_authenticated }}
+{% if user.is_authenticated %}
+User only Data
+    {% for i in my_list %}
+    <li> {{ i }} </li>
+    {% endfor %}
+
+{% endif %}
 
 {% endblock %}
