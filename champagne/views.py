@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 
+from .models import ChampagneBlogPost
+
 # Create your views here.
 
 
@@ -27,3 +29,10 @@ def example_page_view(request):
     template_obj = get_template(template_name)
     rendered_item = template_obj.render(context)
     return HttpResponse(rendered_item)
+
+
+def blog_page_detail_view(request):
+    obj = ChampagneBlogPost.objects.get(id=1)
+    template_name = "blog_page_detail.html"
+    context = {"object": obj}
+    return render(request, template_name, context)
