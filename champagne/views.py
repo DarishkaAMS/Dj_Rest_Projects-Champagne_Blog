@@ -40,3 +40,23 @@ def blog_page_detail_view(request, slug):
     template_name = "blog_page_detail.html"
     context = {"object": obj}
     return render(request, template_name, context)
+
+
+def blog_page_list_view(request):
+    pass
+
+
+def blog_page_create_view(request):
+    pass
+
+
+def blog_page_retrieve_view(request):
+    pass
+
+
+def blog_page_update_view(request):
+    pass
+
+
+def blog_page_delete_view(request):
+    pass
