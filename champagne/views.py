@@ -31,8 +31,8 @@ def example_page_view(request):
     return HttpResponse(rendered_item)
 
 
-def blog_page_detail_view(request, post_id):
-    obj = get_object_or_404(ChampagneBlogPost, id=post_id)
+def blog_page_detail_view(request, slug):
+    obj = get_object_or_404(ChampagneBlogPost, slug=slug)
     # try:
     #     obj = ChampagneBlogPost.objects.get(id=post_id)
     # except ChampagneBlogPost.DoesNotExist:
