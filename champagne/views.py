@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 
-from .forms import BlogPostForm
+from .forms import BlogPostForm, BlogPostModelForm
 from .models import ChampagneBlogPost
 
 # Create your views here.
@@ -16,10 +16,13 @@ def blog_page_list_view(request):
 
 
 def blog_page_create_view(request):
-    form = BlogPostForm(request.POST or None)
+    form = BlogPostModelForm(request.POST or None)
     if form.is_valid():
-        obj = ChampagneBlogPost.objects.create(**form.cleaned_data)
-        form = BlogPostForm()
+        # obj = ChampagneBlogPost.objects.create(**form.cleaned_data)
+        obj = form.save(commit=False)
+        # obj.title = form.cleaned_data.get("title") + " :)"
+        obj.save()
+        form = BlogPostModelForm()
     template_name = "form.html"
     context = {"form": form}
     return render(request, template_name, context)
