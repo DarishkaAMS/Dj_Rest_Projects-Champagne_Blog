@@ -32,13 +32,9 @@ def example_page_view(request):
 
 
 def blog_page_detail_view(request, slug):
-    obj = get_object_or_404(ChampagneBlogPost, slug=slug)
-    # try:
-    #     obj = ChampagneBlogPost.objects.get(id=post_id)
-    # except ChampagneBlogPost.DoesNotExist:
-    #     raise Http404
-    # except ChampagneBlogPost.ValueError:
-    #     raise Http404
+    queryset = ChampagneBlogPost.objects.filter(slug=slug)
+    if queryset.count() >= 1:
+        obj = queryset.first()
     template_name = "blog_page_detail.html"
     context = {"object": obj}
     return render(request, template_name, context)
