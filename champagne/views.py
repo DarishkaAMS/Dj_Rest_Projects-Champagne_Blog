@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 
 from .models import ChampagneBlogPost
@@ -32,7 +32,13 @@ def example_page_view(request):
 
 
 def blog_page_detail_view(request, post_id):
-    obj = ChampagneBlogPost.objects.get(id=post_id)
+    obj = get_object_or_404(ChampagneBlogPost, id=post_id)
+    # try:
+    #     obj = ChampagneBlogPost.objects.get(id=post_id)
+    # except ChampagneBlogPost.DoesNotExist:
+    #     raise Http404
+    # except ChampagneBlogPost.ValueError:
+    #     raise Http404
     template_name = "blog_page_detail.html"
     context = {"object": obj}
     return render(request, template_name, context)
