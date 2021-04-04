@@ -24,6 +24,7 @@ def blog_page_create_view(request):
     if form.is_valid():
         # obj = ChampagneBlogPost.objects.create(**form.cleaned_data)
         obj = form.save(commit=False)
+        obj.user = request.user
         # obj.title = form.cleaned_data.get("title") + " :)"
         obj.save()
         form = BlogPostModelForm()
