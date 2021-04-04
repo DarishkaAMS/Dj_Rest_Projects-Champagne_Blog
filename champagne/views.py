@@ -32,9 +32,11 @@ def example_page_view(request):
 
 
 def blog_page_detail_view(request, slug):
-    queryset = ChampagneBlogPost.objects.filter(slug=slug)
-    if queryset.count() >= 1:
-        obj = queryset.first()
+    # queryset = ChampagneBlogPost.objects.filter(slug=slug)
+    # if queryset.count() == 0:
+    #     raise Http404
+    # obj = queryset.first()
+    obj = get_object_or_404(ChampagneBlogPost, slug=slug)
     template_name = "blog_page_detail.html"
     context = {"object": obj}
     return render(request, template_name, context)
