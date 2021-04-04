@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 
+from .forms import ContactForm
+
 # Create your views here.
 
 
@@ -17,5 +19,13 @@ def about_page_view(request):
 
 
 def contact_page_view(request):
-    return render(request, "hello.html", {"title": "Connect us"})
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form = ContactForm()
+    context = {
+        "title": "Contact Us",
+        "form": form
+    }
+    return render(request, "form.html", context)
 
