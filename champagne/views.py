@@ -31,8 +31,8 @@ def example_page_view(request):
     return HttpResponse(rendered_item)
 
 
-def blog_page_detail_view(request):
-    obj = ChampagneBlogPost.objects.get(id=1)
+def blog_page_detail_view(request, post_id):
+    obj = ChampagneBlogPost.objects.get(id=post_id)
     template_name = "blog_page_detail.html"
     context = {"object": obj}
     return render(request, template_name, context)
