@@ -2,15 +2,17 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import get_template
 
 from .forms import ContactForm
+from champagne.models import ChampagneBlogPost
 
 # Create your views here.
 
 
 def home_page_view(request):
     my_title = "Hello there..."
-    context = {"title": "not Authenticated"}
-    if request.user.is_authenticated:
-        context = {"title": my_title, "my_list": [1, 2, 3, 4, 5]}
+    qs = ChampagneBlogPost.objects.all()[:5]
+    context = {"title": "Welcome", "blog_list": qs}
+    # if request.user.is_authenticated:
+    #     context = {"title": my_title, "my_list": [1, 2, 3, 4, 5]}
     return render(request, "home.html", context)
 
 
