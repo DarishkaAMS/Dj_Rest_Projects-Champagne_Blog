@@ -13,13 +13,11 @@ class ChampagneBlogPostManagerQuerySet(models.QuerySet):
         return self.filter(publish_date__lte=now)
      
 
-class ChampagneBlogPostManager(models.Manager):
-    def get_queryset(self):
-        return ChampagneBlogPostManagerQuerySet(self.model, using=self._db)
-    
-    def published(self):
-        return self.get_queryset().published()
 
+class ChampagneBlogPostManager(models.Manager):
+    def get_query_set(self):
+        return ChampagneBlogPostManagerQuerySet(self.model, using=self._db
+    
 
 class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
