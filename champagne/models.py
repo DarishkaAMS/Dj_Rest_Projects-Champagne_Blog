@@ -1,10 +1,17 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
 
+
+class ChampagneBlogPostManager(models.Manager):
+    def published(self):
+        now = timezone.now()
+        return self.get_queryset().filter(publish_date__lte=now)
+    
 
 class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
@@ -15,6 +22,8 @@ class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    objects = ChampagneBlogPostManager()
+    
     class Meta:
         ordering = ['-publish_date', '-updated', '-timestamp']
     
