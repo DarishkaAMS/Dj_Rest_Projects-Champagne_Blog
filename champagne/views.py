@@ -12,6 +12,9 @@ from .models import ChampagneBlogPost
 
 def blog_page_list_view(request):
     queryset = ChampagneBlogPost.objects.all().published()
+    if request.user.is_authenticated:
+        my_qs = ChampagneBlogPost.objects.filter(user=request.user)
+        queryset = (queryset | my_qs).distinct()
     template_name = "champagne/blog_page_list.html"
     context = {"object_list": queryset}
     return render(request, template_name, context)
