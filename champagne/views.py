@@ -11,7 +11,7 @@ from .models import ChampagneBlogPost
 
 
 def blog_page_list_view(request):
-    queryset = ChampagneBlogPost.objects.all()
+    queryset = ChampagneBlogPost.objects.all().published()
     template_name = "champagne/blog_page_list.html"
     context = {"object_list": queryset}
     return render(request, template_name, context)
