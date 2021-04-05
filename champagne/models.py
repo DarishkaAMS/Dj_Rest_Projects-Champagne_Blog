@@ -36,7 +36,7 @@ class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
         return f"/blog/{self.slug}"
 
     def get_edit_url(self):
-        return f"/blog/{self.slug}/edit"
+        return f"{self.get_absolute_url()}/edit"
 
     def get_delete_url(self):
-        return f"/blog/{self.slug}/delete"
+        return f"{self.get_absolute_url()}/delete"
