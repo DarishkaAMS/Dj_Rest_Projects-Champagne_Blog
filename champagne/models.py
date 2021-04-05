@@ -7,10 +7,16 @@ from django.utils import timezone
 User = settings.AUTH_USER_MODEL
 
 
-class ChampagneBlogPostManager(models.Manager):
+class ChampagneBlogPostManagerQuerySet(models.QuerySet):
     def published(self):
         now = timezone.now()
-        return self.get_queryset().filter(publish_date__lte=now)
+        return self.filter(publish_date__lte=now)
+     
+
+
+class ChampagneBlogPostManager(models.Manager):
+    def get_query_set(self):
+        return ChampagneBlogPostManagerQuerySet(self.model, using=self._db
     
 
 class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
