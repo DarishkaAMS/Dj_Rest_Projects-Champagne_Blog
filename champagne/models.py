@@ -7,16 +7,19 @@ from django.utils import timezone
 User = settings.AUTH_USER_MODEL
 
 
-class ChampagneBlogPostManagerQuerySet(models.QuerySet):
+class ChampagneBlogPostQuerySet(models.QuerySet):
     def published(self):
         now = timezone.now()
         return self.filter(publish_date__lte=now)
 
 
 class ChampagneBlogPostManager(models.Manager):
-    def get_query_set(self):
-        return ChampagneBlogPostManagerQuerySet(self.model, using=self._db)
-    
+    def get_queryset(self):
+        return ChampagneBlogPostQuerySet(self.model, using=self._db)
+
+    def published(self):
+        return self.get_queryset().published()
+
 
 class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
@@ -27,7 +30,7 @@ class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    # objects = ChampagneBlogPostManager()
+    objects = ChampagneBlogPostManager()
     
     class Meta:
         ordering = ['-publish_date', '-updated', '-timestamp']
