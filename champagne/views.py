@@ -42,8 +42,11 @@ def blog_page_detail_view(request, slug):
 
 def blog_page_update_view(request, slug):
     obj = get_object_or_404(ChampagneBlogPost, slug=slug)
-    template_name = "champagne/blog_page_update.html"
-    context = {"object": obj, "form": None}
+    form = BlogPostModelForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+    template_name = "form.html"
+    context = {"form": form, "tile": f"Update {obj.title}"}
     return render(request, template_name, context)
 
 
