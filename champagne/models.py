@@ -11,12 +11,11 @@ class ChampagneBlogPostManagerQuerySet(models.QuerySet):
     def published(self):
         now = timezone.now()
         return self.filter(publish_date__lte=now)
-     
 
 
 class ChampagneBlogPostManager(models.Manager):
     def get_query_set(self):
-        return ChampagneBlogPostManagerQuerySet(self.model, using=self._db
+        return ChampagneBlogPostManagerQuerySet(self.model, using=self._db)
     
 
 class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
@@ -28,7 +27,7 @@ class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    objects = ChampagneBlogPostManager()
+    # objects = ChampagneBlogPostManager()
     
     class Meta:
         ordering = ['-publish_date', '-updated', '-timestamp']
