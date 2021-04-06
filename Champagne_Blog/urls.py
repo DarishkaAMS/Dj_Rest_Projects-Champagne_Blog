@@ -20,6 +20,7 @@ from django.urls import include, path, re_path
 from .views import (about_page_view,
                     contact_page_view,
                     home_page_view)
+from searches.views import search_view
 
 
 urlpatterns = [
@@ -31,6 +32,8 @@ urlpatterns = [
     path('contact/', contact_page_view),
     re_path(r'^about/$', about_page_view),
     re_path(r'^pages?/$', about_page_view),
+
+    path('search/', search_view)
 ]
 
 if settings.DEBUG:
