@@ -23,7 +23,7 @@ def blog_page_list_view(request):
 @staff_member_required
 # @login_required
 def blog_page_create_view(request):
-    form = BlogPostModelForm(request.POST or None)
+    form = BlogPostModelForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         # obj = ChampagneBlogPost.objects.create(**form.cleaned_data)
         obj = form.save(commit=False)

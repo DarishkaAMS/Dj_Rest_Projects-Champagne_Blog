@@ -26,7 +26,7 @@ class ChampagneBlogPost(models.Model):  # champagneblogpost_set -> qs
     title = models.CharField(max_length=120)
     slug = models.SlugField(unique=True)
     content = models.TextField(null=True, blank=True)
-    image = models.FileField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     publish_date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
