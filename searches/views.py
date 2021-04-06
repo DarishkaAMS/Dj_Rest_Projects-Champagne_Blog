@@ -10,6 +10,7 @@ def search_view(request):
     user = None
     if request.user.is_authenticated:
         user = request.user
-    SearchQuery.objects.create(user=user, query=query)
+    if query is not None:
+        SearchQuery.objects.create(user=user, query=query)
     context = {"query": query}
     return render(request, "searches/view.html", context)
